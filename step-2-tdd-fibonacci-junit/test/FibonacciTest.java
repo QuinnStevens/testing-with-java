@@ -17,4 +17,25 @@ public class FibonacciTest {
 
 		assertEquals(expectedResult, fibonacci.calculate(testIndex));
 	}
+
+	@Test
+	public void calculate_1() {
+		int testIndex = 1;
+		int expectedResult = 1;
+
+		assertEquals(expectedResult, fibonacci.calculate(testIndex));
+	}
+
+	@Test
+	public void calculate_6() {
+		int testIndex = 6;
+		int expectedResult = 13;
+
+		assertEquals(expectedResult, fibonacci.calculate(testIndex));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void calculate_negative() {
+		fibonacci.calculate(-5);
+	}
 }
