@@ -17,5 +17,41 @@ public class Selenium3ExampleIT {
     private static String startUrl;
 
     private Boolean result;
+	
+	@BeforeClass
+	public static void beforeAll() {
+		startUrl = "http://www.google.co.uk";
+		driver = new ChromeDriver();
+		wait = new WebDriverWait(driver, 10);
+	}
+	
+	@AfterClass
+	public static void afterAll() {
+		driver.close();
+		driver.quit();
+	}
 
+	@Before
+	public static void beforeEach() {
+		driver.get(startUrl);
+	}
+
+	@Test
+	public void checkPageTitleOnInit() {
+		assertEquals("Google", driver.getTitle());
+	}
+
+	@Test
+	public void checkPageTitleAfterSearch() {
+		WebElement searchField = driver.findElement(By.name("q"));
+		searchField.sendKeys("Sausages!");
+		searchField.submit();
+
+		result = wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				return driver.getTitle().toLowerCase().startsWith("sausages!");
+			}
+		});
+		assertTrue(result);
+	}
 }
