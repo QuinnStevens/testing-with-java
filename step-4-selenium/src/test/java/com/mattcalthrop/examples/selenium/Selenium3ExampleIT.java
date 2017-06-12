@@ -32,7 +32,7 @@ public class Selenium3ExampleIT {
 	}
 
 	@Before
-	public static void beforeEach() {
+	public void beforeEach() {
 		driver.get(startUrl);
 	}
 
